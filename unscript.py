@@ -30,7 +30,7 @@ def export_image(img, pathname, item):  # sourcery skip: assign-if-exp
     # 粘贴子图，设置偏移
     image.paste(sprite, (ox, oy))
     # 保存到文件
-    print(f'保存文件：{pathname}')
+    print(f'写入文件：{pathname} ok!')
     image.save(pathname, 'png')
 
 
@@ -106,20 +106,12 @@ def get_frame_xy(frame):
     # print(type(result['frame']))
     x = result['frame'][0]
     y = result['frame'][1]
-    return int(x)+128, y
+    return x, y
 
 
 # Press the green button in the gutter to run the script.
 # sourcery skip: merge-nested-ifs
 if __name__ == '__main__':
-    # get_frames_name(r'C:\Users\admin\Desktop\naruto\assets\Tiles\tile')
-    # print("获取当前文件路径——" + os.path.realpath(__file__))
-    # pwd = os.getcwd()
-    # print("当前运行文件路径" + pwd)
-    pass
-
-    # gen_image(r'C:\Users\admin\Documents\WeChat Files\wxid_6ri1myvcfaw222\FileStorage\File\2022-10\work\Choji')
-    # if len(sys.argv) == 3:
-    #     filename = sys.argv[1]
-    #     exportPath = sys.argv[2]
-    #     gen_image(filename, exportPath)
+    if len(sys.argv) == 2:
+        filename = sys.argv[1]
+        gen_image(filename)
