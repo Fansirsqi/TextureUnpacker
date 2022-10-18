@@ -10,8 +10,8 @@
 有可能需要安装`pip install plistlib`
 
 使用示例
-`python` "路径文件名(不要加后缀)"
+`python` upc.py "路径文件名(不要加后缀)"
 
 ```python
-python "/storage/emulated/0/Download/work/ts/Shino"
+python upc.py "/storage/emulated/0/Download/work/ts/Shino"
 ```
