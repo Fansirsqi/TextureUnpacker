@@ -3,6 +3,7 @@
 import plistlib
 import os
 import sys
+from unittest import result
 from PIL import Image
 from pathlib import Path
 
@@ -14,6 +15,7 @@ def export_image(img, pathname, item):  # sourcery skip: assign-if-exp
     size = tuple(map(int, item['sourceSize']))
     # 子图在原始图片中的偏移
     ox, oy, _, _ = tuple(map(int, item['sourceColorRect']))
+
     # 获取子图左上角，右下角
     if item['rotated']:
         box = (x, y, x + h, y + w)
@@ -24,9 +26,10 @@ def export_image(img, pathname, item):  # sourcery skip: assign-if-exp
     # 从图集中裁剪出子图
     sprite = img.crop(box)
 
-    # rotated纹理旋转90度
+    # rotated纹理旋转90度(这样旋转之后的图片就会重新旋转然后输出)
     if item['rotated']:
         sprite = sprite.transpose(Image.Transpose.ROTATE_90)
+        
     # 粘贴子图，设置偏移
     image.paste(sprite, (ox, oy))
     # 保存到文件
@@ -38,14 +41,11 @@ def export_image(img, pathname, item):  # sourcery skip: assign-if-exp
 def get_frame(frame):
     result = {}
     if frame['frame']:
-        result['frame'] = frame['frame'].replace(
-            '}', '').replace('{', '').split(',')
-        result['sourceSize'] = frame['sourceSize'].replace(
-            '}', '').replace('{', '').split(',')
-        result['sourceColorRect'] = frame['sourceColorRect'].replace(
-            '}', '').replace('{', '').split(',')
+        result['frame'] = frame['frame'].replace('}', '').replace('{', '').split(',')
+        result['offset'] = frame['offset'].replace('}', '').replace('{', '').split(',')
         result['rotated'] = frame['rotated']
-        # result['offset'] = frame['offset'].replace('}', '').replace('{', '').split(',')
+        result['sourceColorRect'] = frame['sourceColorRect'].replace('}', '').replace('{', '').split(',')
+        result['sourceSize'] = frame['sourceSize'].replace('}', '').replace('{', '').split(',')       
     return result
 
 
@@ -106,7 +106,7 @@ def get_frame_xy(frame):
     # print(type(result['frame']))
     x = result['frame'][0]
     y = result['frame'][1]
-    return int(x)+128, y
+    return x, y
 
 
 # Press the green button in the gutter to run the script.
@@ -117,7 +117,22 @@ if __name__ == '__main__':
     # pwd = os.getcwd()
     # print("当前运行文件路径" + pwd)
     pass
-
+    #load plist
+    plist_conf = Path(r'C:\Users\admin\Desktop\naruto\assets\Element\HokageMinato\HokageMinato.plist')
+    if not os.path.exists(plist_conf):
+        print("plist文件不存在！")
+    else:
+        print("读取plist..")
+    pl = plistlib.load(open(plist_conf,'rb'))
+    frames = pl['frames']
+    # print(frames)
+    result = {}
+    for key in frames:    
+        item = get_frame(frames[key])
+        result[key] = item
+        with open(file='loadplist.json',mode='a',encoding='utf-8') as file:
+            file.write(f"'{key}':{str(result[key])},\n")
+    
     # gen_image(r'C:\Users\admin\Documents\WeChat Files\wxid_6ri1myvcfaw222\FileStorage\File\2022-10\work\Choji')
     # if len(sys.argv) == 3:
     #     filename = sys.argv[1]

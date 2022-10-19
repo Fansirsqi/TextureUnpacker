@@ -5,3 +5,8 @@ build
 *.spec
 *.png
 *.ico
+*.json
+*.png
+*.ico
+TS.py
+pack.py

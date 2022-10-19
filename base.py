@@ -72,13 +72,15 @@ def outputs(code):
 
 def get_path():  # sourcery skip: assign-if-exp
     if entry_sv.get() == '':
-        return tps('请填入正确路径!')
+        return tps('请填入正确路径!')#为空，提示
     else:
-        return str(entry_sv.get()).split(".")[0]
+        path = str(entry_sv.get()).split(".pl")[0]#fixbug 修复路径中存在.无法识别完整文件路径问题
+        print(path)
+        return path
 
 
 def click_btn():
-    conlose.delete("1.0", "end")
+    conlose.delete("1.0", "end")#清空控制台
     code, resault = do_unpack(get_path())
     if code is None:
         outputs(resault)
