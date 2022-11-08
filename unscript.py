@@ -1,17 +1,30 @@
 #!/usr/bin/python
 # -*- coding: UTF-8 -*-
-import plistlib
 import os
-import sys
-from PIL import Image
+import plistlib
 from pathlib import Path
+
+from PIL import Image
 
 
 def export_image(img, pathname, item):  # sourcery skip: assign-if-exp
+    print(pathname)
     # 去透明后的子图矩形
     x, y, w, h = tuple(map(int, item['frame']))
+
+    if w == 0 or h == 0:
+        w = h = 1
+
     # 子图原始大小
     size = tuple(map(int, item['sourceSize']))
+
+    for i in range(len(size)):
+        if size[i] == 0:
+            size = list(size)
+            # print(type(size))
+            size[i] = 1
+            size = tuple(size)
+
     # 子图在原始图片中的偏移
     ox, oy, _, _ = tuple(map(int, item['sourceColorRect']))
 

@@ -74,7 +74,7 @@ def get_path():  # sourcery skip: assign-if-exp
     if entry_sv.get() == '':
         return tps('请填入正确路径!')  # 为空，提示
     else:
-        path = str(entry_sv.get()).split(".pl")[0]  # fixbug 修复路径中存在.无法识别完整文件路径问题
+        path = str(entry_sv.get()).split(".pl")[0]  # fixbug 修复GUI端路径中存在.无法识别完整文件路径问题
         print(path)
         return path
 
@@ -91,6 +91,7 @@ def click_btn():
 root = TkinterDnD.Tk()
 # root.resizable(width=False, height=False)
 root.iconbitmap(get_resource_path('Icon.ico'))
+
 root.title('Sprite Cut Tool')
 
 entry_sv = tkinter.StringVar()
@@ -131,12 +132,12 @@ sw = root.winfo_screenwidth()
 sh = root.winfo_screenheight()
 rh = 440
 rw = 500
-rx = (sw - rw) // 2
+rx = (sw - rw) // 2+25
 ry = (sh - rh) // 2
 root.geometry(f'{rh}x{rw}+{rx}+{ry}')
 
 entry.drop_target_register(DND_FILES)
 entry.dnd_bind('<<Drop>>', drop)
-# tkinter.messagebox.showinfo("", "您可以拖入plist文件，请确保和png在同一目录")
+tkinter.messagebox.showinfo("", "您可以拖入plist文件，\n请确保和png在同一目录,png与plist文件名相同")
 
 root.mainloop()
