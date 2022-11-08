@@ -1,5 +1,21 @@
 ## 针对于 `TexturePackage`打包的 `cocos2d v2(old CocoStudio)`精灵 `Plist`资源解包
 
+## Bugfix 2022-11-08
+
+1. 可能解决了导出文件夹为空，但没有报错的问题
+2. 修改了图标配色
+3. 添加打开弹窗提示，也许这很烦人，但我尽可能的希望你看说明书
+4. 忘了
+
+---
+
+1. May solve the problem that the export folder is empty, but no error is reported
+2. modified the icon color scheme
+3. Add open pop-up hint, maybe it's annoying, but I hope you read the manual as much as possible
+4. Forgotten
+
+## 2022-10-14
+
 效果演示：https://www.bilibili.com/video/BV1s8411s7Dv/
 
 1. 基于 `tkinter`的GUI界面
@@ -7,7 +23,6 @@
 3. 在此基础上，增加了导出精灵的每一帧名字代码输出
 4. 修改了传入数据结构，默认解压在和 `Plist`同名字文件夹下
 5. 得益于`TkinterDnD2`实现了拖放识别文件路径
-
 
 ## Packaging `cocos2d v2(old CocoStudio)` sprite `Plist` resource unpacking for `TexturePackage`
 
