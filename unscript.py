@@ -3,7 +3,6 @@
 import plistlib
 import os
 import sys
-from unittest import result
 from PIL import Image
 from pathlib import Path
 
@@ -29,7 +28,7 @@ def export_image(img, pathname, item):  # sourcery skip: assign-if-exp
     # rotated纹理旋转90度(这样旋转之后的图片就会重新旋转然后输出)
     if item['rotated']:
         sprite = sprite.transpose(Image.Transpose.ROTATE_90)
-        
+
     # 粘贴子图，设置偏移
     image.paste(sprite, (ox, oy))
     # 保存到文件
@@ -39,14 +38,14 @@ def export_image(img, pathname, item):  # sourcery skip: assign-if-exp
 
 # 获取 frame 参数
 def get_frame(frame):
-    result = {}
+    base_result = {}
     if frame['frame']:
-        result['frame'] = frame['frame'].replace('}', '').replace('{', '').split(',')
-        result['offset'] = frame['offset'].replace('}', '').replace('{', '').split(',')
-        result['rotated'] = frame['rotated']
-        result['sourceColorRect'] = frame['sourceColorRect'].replace('}', '').replace('{', '').split(',')
-        result['sourceSize'] = frame['sourceSize'].replace('}', '').replace('{', '').split(',')       
-    return result
+        base_result['frame'] = frame['frame'].replace('}', '').replace('{', '').split(',')
+        base_result['offset'] = frame['offset'].replace('}', '').replace('{', '').split(',')
+        base_result['rotated'] = frame['rotated']
+        base_result['sourceColorRect'] = frame['sourceColorRect'].replace('}', '').replace('{', '').split(',')
+        base_result['sourceSize'] = frame['sourceSize'].replace('}', '').replace('{', '').split(',')
+    return base_result
 
 
 # 生成图片
@@ -55,12 +54,12 @@ def gen_image(file_name):
     plist = Path(f'{file_name}.plist')
     if not os.path.exists(plist):
         print(f'plist文件【{plist}】不存在！请检查!!')
-        return (f'[导出]plist文件【{plist}】不存在！请检查')
+        return f'[导出]plist文件【{plist}】不存在！请检查'
 
     png = Path(f'{file_name}.png')
     if not os.path.exists(png):
         print(f'png文件【{plist}】不存在！请检查!!')
-        return (f'[导出]png文件【{plist}】不存在！请检查')
+        return f'[导出]png文件【{plist}】不存在！请检查'
 
     # 检查导出目录
     export_path = file_name  # 设置为原来的目录fixupdate
@@ -73,6 +72,7 @@ def gen_image(file_name):
             return e, "文件夹创建失败"
 
     # 使用plistlib库加载 plist 文件
+
     lp = plistlib.load(open(plist, 'rb'))
     # 加载 png 图片文件
     img = Image.open(f'{file_name}.png')
@@ -87,7 +87,7 @@ def gen_image(file_name):
 def get_frames_name(file_path):
     plist = Path(f'{file_path}.plist')
     if not os.path.exists(plist):
-        return (f'[code] plist文件【{plist}】不存在！请检查')
+        return f'[code] plist文件【{plist}】不存在！请检查'
     # im = Path(r'C:\Users\admin\Documents\WeChat Files\wxid_6ri1myvcfaw222\FileStorage\File\2022-10\work\Choji.png')
     lp = plistlib.load(open(plist, 'rb'))
     # img = Image.open(f'{im}')
@@ -95,14 +95,13 @@ def get_frames_name(file_path):
     # # print(frames)
     list_code = ''
     for i in frames:
-        list_code = (f'{list_code}<frameName>{i}</frameName>\n')
+        list_code = f'{list_code}<frameName>{i}</frameName>\n'
     return list_code
 
 
 def get_frame_xy(frame):
-    result = {}
-    result['frame'] = frame['frame'].replace(
-        '}', '').replace('{', '').split(',')
+    result = {'frame': frame['frame'].replace(
+        '}', '').replace('{', '').split(',')}
     # print(type(result['frame']))
     x = result['frame'][0]
     y = result['frame'][1]
@@ -117,22 +116,22 @@ if __name__ == '__main__':
     # pwd = os.getcwd()
     # print("当前运行文件路径" + pwd)
     pass
-    #load plist
+    # load plist
     plist_conf = Path(r'C:\Users\admin\Desktop\naruto\assets\Element\HokageMinato\HokageMinato.plist')
     if not os.path.exists(plist_conf):
         print("plist文件不存在！")
     else:
         print("读取plist..")
-    pl = plistlib.load(open(plist_conf,'rb'))
+    pl = plistlib.load(open(plist_conf, 'rb'))
     frames = pl['frames']
     # print(frames)
     result = {}
-    for key in frames:    
+    for key in frames:
         item = get_frame(frames[key])
         result[key] = item
-        with open(file='loadplist.json',mode='a',encoding='utf-8') as file:
+        with open(file='load_plist.json', mode='a', encoding='utf-8') as file:
             file.write(f"'{key}':{str(result[key])},\n")
-    
+
     # gen_image(r'C:\Users\admin\Documents\WeChat Files\wxid_6ri1myvcfaw222\FileStorage\File\2022-10\work\Choji')
     # if len(sys.argv) == 3:
     #     filename = sys.argv[1]

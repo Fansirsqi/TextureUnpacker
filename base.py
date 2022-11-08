@@ -1,4 +1,4 @@
-import sys,os
+import sys, os
 import tkinter
 import tkinter.messagebox
 import tkinter.filedialog
@@ -72,15 +72,15 @@ def outputs(code):
 
 def get_path():  # sourcery skip: assign-if-exp
     if entry_sv.get() == '':
-        return tps('请填入正确路径!')#为空，提示
+        return tps('请填入正确路径!')  # 为空，提示
     else:
-        path = str(entry_sv.get()).split(".pl")[0]#fixbug 修复路径中存在.无法识别完整文件路径问题
+        path = str(entry_sv.get()).split(".pl")[0]  # fixbug 修复路径中存在.无法识别完整文件路径问题
         print(path)
         return path
 
 
 def click_btn():
-    conlose.delete("1.0", "end")#清空控制台
+    conlose.delete("1.0", "end")  # 清空控制台
     code, resault = do_unpack(get_path())
     if code is None:
         outputs(resault)
@@ -92,7 +92,6 @@ root = TkinterDnD.Tk()
 # root.resizable(width=False, height=False)
 root.iconbitmap(get_resource_path('Icon.ico'))
 root.title('Sprite Cut Tool')
-
 
 entry_sv = tkinter.StringVar()
 # entry_sv.set('您没有选择任何Plist文件')
@@ -107,14 +106,12 @@ entry.grid(row=0, column=2, padx=10, pady=2, ipady=7, columnspan=6)
 
 
 ex_btn = tkinter.Button(
-    root, text='分解图片', relief=tkinter.RAISED,  font=('楷体', 14), command=click_btn)
+    root, text='分解图片', relief=tkinter.RAISED, font=('楷体', 14), command=click_btn)
 ex_btn.grid(row=1, column=3, columnspan=2)
 
-
 conlose = tkinter.Text(root, bg="#000", fg='#00ecf7',
-                       font=("新宋体", 12),  width=52, height=24)
+                       font=("新宋体", 12), width=52, height=24)
 conlose.grid(row=2, column=0, columnspan=6, padx=10, pady=2)
-
 
 img_open = Image.open(get_resource_path('head.png'))
 img_png = ImageTk.PhotoImage(img_open)
@@ -123,8 +120,7 @@ auth_img = tkinter.Label(
     root, text="绿色", image=img_png, bg="#fff", fg='#ffffff')
 
 back_btn = tkinter.Button(
-    root, text='返回主界面', relief=tkinter.RAISED,  font=('楷体', 14), width=15, command=back)
-
+    root, text='返回主界面', relief=tkinter.RAISED, font=('楷体', 14), width=15, command=back)
 
 main_menu = tkinter.Menu()
 add_menu("文件", back_main_adk)
@@ -135,8 +131,8 @@ sw = root.winfo_screenwidth()
 sh = root.winfo_screenheight()
 rh = 440
 rw = 500
-rx = (sw-rw)//2
-ry = (sh-rh)//2
+rx = (sw - rw) // 2
+ry = (sh - rh) // 2
 root.geometry(f'{rh}x{rw}+{rx}+{ry}')
 
 entry.drop_target_register(DND_FILES)
