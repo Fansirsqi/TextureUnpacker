@@ -10,3 +10,4 @@ build
 *.ico
 TS.py
 pack.py
+.idea
