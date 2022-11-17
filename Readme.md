@@ -1,6 +1,6 @@
 ## 针对于 `TexturePackage`打包的 `cocos2d v2(old CocoStudio)`精灵 `Plist`资源解包
 
-## Bugfix 2022-11-17
+## Update 2022-11-17
 
 增加了`严格模式`选项，如果图片是使用`TexturePackage`等软件正常打包，使用`严格模式`即可
 
