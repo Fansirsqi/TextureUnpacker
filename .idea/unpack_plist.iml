@@ -1,11 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <module version="4">
-  <component name="PackageRequirementsSettings">
-    <option name="removeUnused" value="true" />
-    <option name="modifyBaseFiles" value="true" />
-  </component>
-  <component name="PyDocumentationSettings">
-    <option name="format" value="PLAIN" />
-    <option name="myDocStringFormat" value="Plain" />
+  <component name="NewModuleRootManager">
+    <orderEntry type="jdk" jdkName="Python 3.9 (unpack_plist)" jdkType="Python SDK" />
+    <orderEntry type="sourceFolder" forTests="false" />
   </component>
 </module>

@@ -1,14 +1,17 @@
-import sys, os
+import os
+import sys
 import tkinter
-import tkinter.messagebox
 import tkinter.filedialog
+import tkinter.messagebox
+from tkinter import *
+
 import unscript as unpack
-from TkinterDnD2 import *
 from PIL import Image, ImageTk
+from TkinterDnD2 import *
 
 
 def do_unpack(file_path):
-    resault = unpack.gen_image(file_path)
+    resault = unpack.gen_image(file_path, CheckVar1.get())
     return unpack.get_frames_name(file_path), resault
 
 
@@ -82,10 +85,16 @@ def get_path():  # sourcery skip: assign-if-exp
 def click_btn():
     conlose.delete("1.0", "end")  # 清空控制台
     code, resault = do_unpack(get_path())
+    if CheckVar1.get() == 0:
+        tips = '严格模式'
+    else:
+        tips = '非严格模式'
     if code is None:
+        outputs(tips)
         outputs(resault)
     else:
         outputs(code)
+        outputs(tips)
 
 
 root = TkinterDnD.Tk()
@@ -105,10 +114,16 @@ entry.grid(row=0, column=2, padx=10, pady=2, ipady=7, columnspan=6)
 #     root, text='选择文件', relief=tkinter.RAISED,  font=('楷体', 14), command=askfile)
 # file_btn.grid(row=1, column=3)
 
+CheckVar1 = IntVar()
+C1 = Checkbutton(root, text="严格模式", variable=CheckVar1,
+                 onvalue=0, offvalue=1, width=20)
+C1.grid(row=1, column=2)
+C1.select()
+# print(type(CheckVar1.get()))
 
 ex_btn = tkinter.Button(
     root, text='分解图片', relief=tkinter.RAISED, font=('楷体', 14), command=click_btn)
-ex_btn.grid(row=1, column=3, columnspan=2)
+ex_btn.grid(row=1, column=3, columnspan=1)
 
 conlose = tkinter.Text(root, bg="#000", fg='#00ecf7',
                        font=("新宋体", 12), width=52, height=24)
@@ -132,7 +147,7 @@ sw = root.winfo_screenwidth()
 sh = root.winfo_screenheight()
 rh = 440
 rw = 500
-rx = (sw - rw) // 2+25
+rx = (sw - rw) // 2 + 25
 ry = (sh - rh) // 2
 root.geometry(f'{rh}x{rw}+{rx}+{ry}')
 

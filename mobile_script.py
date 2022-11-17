@@ -2,13 +2,14 @@
 # -*- coding: UTF-8 -*-
 import os
 import plistlib
+import sys
 from pathlib import Path
 
 from PIL import Image
 
 
 def export_image(img, pathname, item, skey):  # sourcery skip: assign-if-exp
-    print(pathname)
+
     # 去透明后的子图矩形
     x, y, w, h = tuple(map(int, item['frame']))
 
@@ -30,7 +31,7 @@ def export_image(img, pathname, item, skey):  # sourcery skip: assign-if-exp
             size = tuple([w, h])
             print(size)
 
-    # 防止PIL报错
+        # 防止PIL报错
     for i in range(len(size)):
         if size[i] == 0:
             size = list(size)
@@ -63,25 +64,27 @@ def export_image(img, pathname, item, skey):  # sourcery skip: assign-if-exp
         image.paste(sprite, (0, 0))
 
     # 保存到文件
-    print(f'保存文件：{pathname}')
     image.save(pathname, 'png')
+    print(f'写入文件：{pathname} ok!')
 
 
 # 获取 frame 参数
 def get_frame(frame):
-    base_result = {}
+    result = {}
     if frame['frame']:
-        base_result['frame'] = frame['frame'].replace('}', '').replace('{', '').split(',')
-        base_result['offset'] = frame['offset'].replace('}', '').replace('{', '').split(',')
-        base_result['rotated'] = frame['rotated']
-        base_result['sourceColorRect'] = frame['sourceColorRect'].replace('}', '').replace('{', '').split(',')
-        base_result['sourceSize'] = frame['sourceSize'].replace('}', '').replace('{', '').split(',')
-    return base_result
+        result['frame'] = frame['frame'].replace(
+            '}', '').replace('{', '').split(',')
+        result['sourceSize'] = frame['sourceSize'].replace(
+            '}', '').replace('{', '').split(',')
+        result['sourceColorRect'] = frame['sourceColorRect'].replace(
+            '}', '').replace('{', '').split(',')
+        result['rotated'] = frame['rotated']
+        # result['offset'] = frame['offset'].replace('}', '').replace('{', '').split(',')
+    return result
 
 
 # 生成图片
-# skey 切图模式
-def gen_image(file_name, skey):
+def gen_image(file_name):
     # 检查文件是否存在
     plist = Path(f'{file_name}.plist')
     if not os.path.exists(plist):
@@ -90,8 +93,8 @@ def gen_image(file_name, skey):
 
     png = Path(f'{file_name}.png')
     if not os.path.exists(png):
-        print(f'png文件【{plist}】不存在！请检查!!')
-        return f'[导出]png文件【{plist}】不存在！请检查'
+        print(f'png文件【{png}】不存在！请检查!!')
+        return f'[导出]png文件【{png}】不存在！请检查'
 
     # 检查导出目录
     export_path = file_name  # 设置为原来的目录fixupdate
@@ -104,13 +107,14 @@ def gen_image(file_name, skey):
             return e, "文件夹创建失败"
 
     # 使用plistlib库加载 plist 文件
-
     lp = plistlib.load(open(plist, 'rb'))
     # 加载 png 图片文件
     img = Image.open(f'{file_name}.png')
 
     # 读取所有小图数据
     frames = lp['frames']
+    print("请输入切图模式，0，标准模式，1，不严格模式")
+    skey = input("请输入:")
     for key in frames:
         item = get_frame(frames[key])
         export_image(img, os.path.join(export_path, key), item, skey)
@@ -143,29 +147,6 @@ def get_frame_xy(frame):
 # Press the green button in the gutter to run the script.
 # sourcery skip: merge-nested-ifs
 if __name__ == '__main__':
-    # get_frames_name(r'C:\Users\admin\Desktop\naruto\assets\Tiles\tile')
-    # print("获取当前文件路径——" + os.path.realpath(__file__))
-    # pwd = os.getcwd()
-    # print("当前运行文件路径" + pwd)
-    pass
-    # load plist
-    plist_conf = Path(r'C:\Users\admin\Desktop\naruto\assets\Element\HokageMinato\HokageMinato.plist')
-    if not os.path.exists(plist_conf):
-        print("plist文件不存在！")
-    else:
-        print("读取plist..")
-    pl = plistlib.load(open(plist_conf, 'rb'))
-    frames = pl['frames']
-    # print(frames)
-    result = {}
-    for key in frames:
-        item = get_frame(frames[key])
-        result[key] = item
-        with open(file='load_plist.json', mode='a', encoding='utf-8') as file:
-            file.write(f"'{key}':{str(result[key])},\n")
-
-    # gen_image(r'C:\Users\admin\Documents\WeChat Files\wxid_6ri1myvcfaw222\FileStorage\File\2022-10\work\Choji')
-    # if len(sys.argv) == 3:
-    #     filename = sys.argv[1]
-    #     exportPath = sys.argv[2]
-    #     gen_image(filename, exportPath)
+    if len(sys.argv) == 2:
+        filename = sys.argv[1]
+        gen_image(filename)

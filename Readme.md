@@ -1,5 +1,22 @@
 ## 针对于 `TexturePackage`打包的 `cocos2d v2(old CocoStudio)`精灵 `Plist`资源解包
 
+## Bugfix 2022-11-17
+
+增加了`严格模式`选项，如果图片是使用`TexturePackage`等软件正常打包，使用`严格模式`即可
+
+如果是人手写offset的文件，去除勾选`严格模式`即可
+
+如果软件打包的资源使用`非严格模式`解压，再重新用软件打包，会造成图片偏移严重情况，请悉知
+
+---
+
+Added `Strict Mode` option, if the image is packed normally using software such as `TexturePackage`, use `Strict Mode`.
+
+If the file is handwritten offset, remove the `Strict Mode` checkbox
+
+If you use `Non-strict mode` to unpack the resources packed by software, and then repack them with software, it will cause serious image shift.
+
+
 ## Bugfix 2022-11-08
 
 1. 可能解决了导出文件夹为空，但没有报错的问题
