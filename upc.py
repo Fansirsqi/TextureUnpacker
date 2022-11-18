@@ -22,14 +22,14 @@ def export_image(img, pathname, item, skey):  # sourcery skip: assign-if-exp
     # 子图原始大小
     if int(key) == 0:  # 设置切图模式，0为默认模式，其他为不标准格式)
         size = tuple(map(int, item['sourceSize']))
-        print(size)
+       # print(size)
     else:
         if item['rotated']:
             size = tuple([h, w])
-            print(size)
+           # print(size)
         else:
             size = tuple([w, h])
-            print(size)
+          #  print(size)
 
     # 子图在原始图片中的偏移
     ox, oy, _, _ = tuple(map(int, item['sourceColorRect']))
@@ -108,6 +108,7 @@ def gen_image(file_name):
     print("请输入切图模式，0，标准模式，1，不严格模式")
     skey = input("请输入:")
     for key in frames:
+        print(key)
         item = get_frame(frames[key])
         export_image(img, os.path.join(export_path, key), item, skey)
 
