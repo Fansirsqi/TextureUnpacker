@@ -2,6 +2,7 @@
 >
 >注*:该项目只是为了方便拆包一《火影战记》游戏中的精灵一时兴起写的，完成度基本差不多了，之余批量解包也是可以自己修改源码做到的，目前不会考虑更新了，谢谢您的理解与支持(2023-02-01)
 >
+
 ## How To Build(如何构建)
 
 ### create a virtual environment(创建虚拟环境)
@@ -35,6 +36,8 @@ pip install -r requirements.txt
 ```bash
 python ./build.py
 ```
+
+### windows 用户可以在[releases](https://github.com/Fansirsqi/TextureUnpacker/releases)里下载,已经构建好的二进制exe文件
 
 ## Update 2024-02-28
 
