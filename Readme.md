@@ -1,5 +1,45 @@
-## 针对于 `TexturePackage`打包的 `cocos2d v2(old CocoStudio)`精灵 `Plist`资源解包
+# 针对于 `TexturePackage`打包的 `cocos2d v2(old CocoStudio)`精灵 `Plist`资源解包
+>
 >注*:该项目只是为了方便拆包一《火影战记》游戏中的精灵一时兴起写的，完成度基本差不多了，之余批量解包也是可以自己修改源码做到的，目前不会考虑更新了，谢谢您的理解与支持(2023-02-01)
+>
+## How To Build(如何构建)
+
+### create a virtual environment(创建虚拟环境)
+
+```bash
+python -m venv venv
+```
+
+### active the virtual environment(激活虚拟环境)
+
+- windows
+
+```bash
+.\venv\Scripts\Activate.ps1
+```
+
+- linux
+
+```bash
+.\venv\Scripts\activate
+```
+
+### install dependencies(安装依赖)
+
+```bash
+pip install -r requirements.txt
+```
+
+### build(构建)
+
+```bash
+python ./build.py
+```
+
+## Update 2024-02-28
+
+添加对jpg文件的支持，优化打包体积，删除多余依赖
+
 ## Update 2022-11-17
 
 增加了`严格模式`选项，如果图片是使用`TexturePackage`等软件正常打包，使用`严格模式`即可
@@ -15,7 +55,6 @@ Added `Strict Mode` option, if the image is packed normally using software such 
 If the file is handwritten offset, remove the `Strict Mode` checkbox
 
 If you use `Non-strict mode` to unpack the resources packed by software, and then repack them with software, it will cause serious image shift.
-
 
 ## Bugfix 2022-11-08
 
@@ -33,7 +72,7 @@ If you use `Non-strict mode` to unpack the resources packed by software, and the
 
 ## 2022-10-14
 
-效果演示：https://www.bilibili.com/video/BV1s8411s7Dv/
+效果演示：<https://www.bilibili.com/video/BV1s8411s7Dv/>
 
 1. 基于 `tkinter`的GUI界面
 2. 基于[tp-png-spli](https://github.com/ShawnZhang2015/tp-png-split)
