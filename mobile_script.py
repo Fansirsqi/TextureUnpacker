@@ -9,7 +9,6 @@ from PIL import Image
 
 
 def export_image(img, pathname, item, skey):  # sourcery skip: assign-if-exp
-
     # 去透明后的子图矩形
     x, y, w, h = tuple(map(int, item['frame']))
 
@@ -72,12 +71,9 @@ def export_image(img, pathname, item, skey):  # sourcery skip: assign-if-exp
 def get_frame(frame):
     result = {}
     if frame['frame']:
-        result['frame'] = frame['frame'].replace(
-            '}', '').replace('{', '').split(',')
-        result['sourceSize'] = frame['sourceSize'].replace(
-            '}', '').replace('{', '').split(',')
-        result['sourceColorRect'] = frame['sourceColorRect'].replace(
-            '}', '').replace('{', '').split(',')
+        result['frame'] = frame['frame'].replace('}', '').replace('{', '').split(',')
+        result['sourceSize'] = frame['sourceSize'].replace('}', '').replace('{', '').split(',')
+        result['sourceColorRect'] = frame['sourceColorRect'].replace('}', '').replace('{', '').split(',')
         result['rotated'] = frame['rotated']
         # result['offset'] = frame['offset'].replace('}', '').replace('{', '').split(',')
     return result
@@ -104,7 +100,7 @@ def gen_image(file_name):
             os.mkdir(export_path)
         except Exception as e:
             print(e)
-            return e, "文件夹创建失败"
+            return e, '文件夹创建失败'
 
     # 使用plistlib库加载 plist 文件
     lp = plistlib.load(open(plist, 'rb'))
@@ -113,8 +109,8 @@ def gen_image(file_name):
 
     # 读取所有小图数据
     frames = lp['frames']
-    print("请输入切图模式，0，标准模式，1，不严格模式")
-    skey = input("请输入:")
+    print('请输入切图模式，0，标准模式，1，不严格模式')
+    skey = input('请输入:')
     for key in frames:
         item = get_frame(frames[key])
         export_image(img, os.path.join(export_path, key), item, skey)
@@ -136,8 +132,7 @@ def get_frames_name(file_path):
 
 
 def get_frame_xy(frame):
-    result = {'frame': frame['frame'].replace(
-        '}', '').replace('{', '').split(',')}
+    result = {'frame': frame['frame'].replace('}', '').replace('{', '').split(',')}
     # print(type(result['frame']))
     x = result['frame'][0]
     y = result['frame'][1]
