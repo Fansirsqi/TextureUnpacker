@@ -30,12 +30,12 @@ StringFileInfo(
   StringTable(u'040904B0',[
     StringStruct(u'CompanyName', u'交流q群号418604724'), 
     StringStruct(u'FileDescription', u'针对于TexturePackage打包的 cocos2d v2(old CocoStudio)精灵资源解包工具'),    # 文件说明
-    StringStruct(u'FileVersion', u'4.0.0.0'),
+    StringStruct(u'FileVersion', u'4.0.1.0'),
     StringStruct(u'InternalName', u'SVN'),
     StringStruct(u'LegalCopyright', u'Made By Byseven'), #版权
     StringStruct(u'OriginalFilename', u'Sprite Cut Tool.exe'), #原始文件名
     StringStruct(u'ProductName', u'Sprite Cut Tool'),      #产品名称
-    StringStruct(u'ProductVersion', u'4.0.0.0')])    #产品版本
+    StringStruct(u'ProductVersion', u'4.0.1.0')])    #产品版本
   ]),
 VarFileInfo([VarStruct(u'Translation', [2052, 1200])]) # 语言
   ]
